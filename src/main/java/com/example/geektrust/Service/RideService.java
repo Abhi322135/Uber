@@ -21,4 +21,7 @@ public class RideService {
     public Optional<Ride> getRideById(String id){
         return rideRepository.findById(id);
     }
+    public boolean isRiderOnRide(String id){
+        return rideRepository.findIfUserIsOnARide(id);
+    }
 }

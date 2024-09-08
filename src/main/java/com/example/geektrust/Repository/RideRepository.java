@@ -1,5 +1,6 @@
 package com.example.geektrust.Repository;
 
+import com.example.geektrust.Constant;
 import com.example.geektrust.Model.Ride;
 
 import java.util.ArrayList;
@@ -27,5 +28,8 @@ public class RideRepository {
 
     public Optional<Ride> findById(String id) {
         return rideList.stream().filter(a -> a.getId().equals(id)).findAny();
+    }
+    public boolean findIfUserIsOnARide(String id){
+        return rideList.stream().anyMatch(a -> a.getId().equals(id) && a.isRideCompleted() == Constant.FALSE);
     }
 }

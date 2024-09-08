@@ -1,5 +1,9 @@
 package com.example.geektrust.Model.POJO;
 
+import com.example.geektrust.Util;
+
+import java.text.DecimalFormat;
+
 public class Location {
     private int x;
     private int y;
@@ -31,5 +35,15 @@ public class Location {
                 "x=" + x +
                 ", y=" + y +
                 '}';
+    }
+
+    public String distanceTo(Location that) {
+        int x1 = this.x;
+        int y1 = this.y;
+        int x2 = that.getX();
+        int y2 = that.getY();
+        int sqX = (x2 - x1) * (x2 - x1);
+        int sqY = (y2 - y1) * (y2 - y1);
+        return Util.getTwoDecimalNumber(Math.sqrt(sqX + sqY));
     }
 }

@@ -9,13 +9,15 @@ public class Ride {
     private int minutes;
     private Location location;
     private double distanceCovered ;
-    public Ride(String id, Rider rider, int minutes, Driver driver,Location location,double distanceCovered) {
+    private boolean isRideCompleted;
+    public Ride(String id, Rider rider, int minutes, Driver driver,Location location,double distanceCovered,boolean isRideCompleted) {
         this.id = id;
         this.rider = rider;
         this.minutes = minutes;
         this.driver = driver;
         this.location = location;
         this.distanceCovered = distanceCovered;
+        this.isRideCompleted = isRideCompleted;
     }
 
     public String getId() {
@@ -27,7 +29,7 @@ public class Ride {
     }
 
     public Rider getRider() {
-        return new Rider(rider.getId(),rider.getRider());
+        return this.rider;
     }
 
     public int getMinutes() {
@@ -39,7 +41,7 @@ public class Ride {
     }
 
     public Driver getDriver() {
-        return new Driver(driver.getId(),driver.getDriver(), driver.isOccupied());
+        return this.driver;
     }
 
 
@@ -59,6 +61,14 @@ public class Ride {
         this.distanceCovered = distanceCovered;
     }
 
+    public boolean isRideCompleted() {
+        return isRideCompleted;
+    }
+
+    public void setRideCompleted(boolean rideCompleted) {
+        isRideCompleted = rideCompleted;
+    }
+
     @Override
     public String toString() {
         return "Ride{" +
@@ -68,6 +78,7 @@ public class Ride {
                 ", minutes=" + minutes +
                 ", location=" + location +
                 ", distanceCovered=" + distanceCovered +
+                ", isRideCompleted=" + isRideCompleted +
                 '}';
     }
 }

@@ -4,11 +4,11 @@ import com.example.geektrust.Model.POJO.Location;
 
 public class Driver {
     private String id;
-    private Location driver;
+    private Location location;
     private boolean isOccupied;
     public Driver(String id, Location driver, boolean isOccupied) {
         this.id = id;
-        this.driver = driver;
+        this.location = driver;
         this.isOccupied = isOccupied;
     }
 
@@ -20,12 +20,12 @@ public class Driver {
         this.id = id;
     }
 
-    public Location getDriver() {
-        return driver;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setDriver(Location driver) {
-        this.driver = driver;
+    public void setLocation(Location driver) {
+        this.location = driver;
     }
 
     public boolean isOccupied() {
@@ -40,7 +40,7 @@ public class Driver {
     public String toString() {
         return "Driver{" +
                 "id='" + id + '\'' +
-                ", driver=" + driver +
+                ", driver=" + location +
                 ", isOccupied=" + isOccupied +
                 '}';
     }

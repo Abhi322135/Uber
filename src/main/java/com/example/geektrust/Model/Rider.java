@@ -6,7 +6,6 @@ import com.example.geektrust.Model.POJO.Location;
 public class Rider {
     private String id;
     private Location rider;
-
     public Rider(String id, Location rider) {
         this.id = id;
         this.rider = rider;

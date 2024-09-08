@@ -25,4 +25,7 @@ public class DriverService {
     public List<Driver> getAllDriver(){
         return driverRepository.getAllDriverList();
     }
+    public Driver getDriver(String id , Location driverLoc, boolean isOccupied){
+        return new Driver(id,driverLoc,isOccupied);
+    }
 }

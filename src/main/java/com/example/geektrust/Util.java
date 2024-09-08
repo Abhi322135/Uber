@@ -2,16 +2,22 @@ package com.example.geektrust;
 
 import com.example.geektrust.Model.POJO.Location;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+
 public class Util {
-    public static double getDistance(Location a, Location b){
-        int x1 = a.getX();
-        int y1 = a.getY();
-        int x2 = b.getX();
-        int y2 = b.getY();
-        return Math.round(Math.sqrt(((x2-x1)*(x2-x1)) + ((y2-y1)*(y2-y1))) * Constant.ROUND) / Constant.ROUND;
+    public static String getDistance(Location a, Location b){ //TODO: Migrate it to Location class
+        return a.distanceTo(b);
     }
-    public static double calculateBill (double distance, int min){
+    public static String calculateBill (double distance, int min) {
         double bill = Constant.BASE_PRICE + (Constant.RATE_PER_KILOMETER * distance) + (Constant.RATE_PER_MINUTE * min);
-        return Math.round(bill * Constant.SERVICE_TAX * Constant.ROUND) / Constant.ROUND;
+        return getTwoDecimalNumber(bill * Constant.SERVICE_TAX);
+    }
+    public static String getTwoDecimalNumber(double number){
+        BigDecimal roundedValue = new BigDecimal(number).setScale(2, RoundingMode.HALF_UP);
+        String formattedNumber = String.format("%.2f", roundedValue);
+        return formattedNumber;
     }
 }

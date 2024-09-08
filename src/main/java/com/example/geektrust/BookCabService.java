@@ -1,0 +1,115 @@
+package com.example.geektrust;
+
+import com.example.geektrust.Model.Bill;
+import com.example.geektrust.Model.Driver;
+import com.example.geektrust.Model.POJO.Location;
+import com.example.geektrust.Model.Ride;
+import com.example.geektrust.Model.Rider;
+import com.example.geektrust.Repository.DriverRepository;
+import com.example.geektrust.Repository.RideRepository;
+import com.example.geektrust.Repository.RiderRepository;
+import com.example.geektrust.Service.DriverService;
+import com.example.geektrust.Service.RideService;
+import com.example.geektrust.Service.RiderService;
+
+import java.util.List;
+import java.util.Optional;
+
+public class BookCabService {
+    private  DriverService driverService;
+    private  RideService rideService;
+    private  RiderService riderService;
+    private  DriverRepository driverRepository;
+    private  RideRepository rideRepository;
+    private  RiderRepository riderRepository;
+    public BookCabService() {
+        this.driverRepository = new DriverRepository();
+        this.rideRepository = new RideRepository();
+        this.riderRepository = new RiderRepository();
+        this.driverService = new DriverService(this.driverRepository);
+        this.rideService = new RideService(this.rideRepository);
+        this.riderService = new RiderService(this.riderRepository);
+    }
+    public void addDriver(String[] arr){
+        Location driverLoc = new Location(Integer.parseInt(arr[2]),Integer.parseInt(arr[3]));
+        driverService.add(driverService.getDriver(arr[1],driverLoc,Constant.FALSE));
+    }
+    public void addRider(String[] arr){
+        Location riderLoc = new Location(Integer.parseInt(arr[2]),Integer.parseInt(arr[3]));
+        riderService.addRider(new Rider(arr[1],riderLoc));
+    }
+    public void matchDriver(String[] arr){
+        Location rider = riderService.getRiderById(arr[1]).get().getRider();
+        List<Driver> drivers = driverService.getTopFiveDriver(rider);
+        if (drivers.size() == 0) {
+            System.out.println("NO_DRIVERS_AVAILABLE");
+            return;
+        }
+        System.out.print("DRIVERS_MATCHED ");
+        drivers.forEach(a -> System.out.print(a.getId()+" "));
+        System.out.println();
+    }
+    public void startRide(String[] arr){
+        int driverInd = Integer.parseInt(arr[2]);
+        Location loc = riderService.getRiderById(arr[3]).get().getRider();
+        List<Driver> drivers = driverService.getTopFiveDriver(loc);
+        if (drivers.size() < driverInd || rideService.isRiderOnRide(arr[3])){
+            System.out.println("INVALID_RIDE");
+            return;
+        }
+        Driver driver = drivers.get(driverInd - 1);
+        driver.setOccupied(Constant.TRUE);
+        Rider rider = riderService.getRiderById(arr[3]).get();
+        rideService.add(new Ride(arr[1],rider,0,driver,driver.getLocation(),0,Constant.FALSE));
+        System.out.println("RIDE_STARTED "+arr[1]);
+    }
+
+    public void stopRide(String[] arr){
+        Optional<Ride> rideOptional = rideService.getRideById(arr[1]);
+        if (isStopRideInvalid(rideOptional,arr[1])){
+            return;
+        }
+
+        Ride ride = rideOptional.get();
+        Driver driver = ride.getDriver();
+        Rider rider = ride.getRider();
+        String distance = Util.getDistance(rider.getRider(),new Location(Integer.parseInt(arr[2]),Integer.parseInt(arr[3])));
+        ride.setDistanceCovered(Double.parseDouble(distance));
+        driver.setLocation(new Location(Integer.parseInt(arr[2]),Integer.parseInt(arr[3])));
+        driver.setOccupied(Constant.FALSE);
+        ride.setMinutes(Integer.parseInt(arr[4]));
+        rider.setRider(new Location(Integer.parseInt(arr[2]),Integer.parseInt(arr[3])));
+        ride.setRideCompleted(Constant.TRUE);
+        driverService.updateDriver(driver);
+        riderService.updateRider(rider);
+        System.out.println("RIDE_STOPPED "+arr[1]);
+    }
+
+    public void generateBill(String[] arr){
+        Optional<Ride> rideOptional = rideService.getRideById(arr[1]);
+        if (! isRideStopped(rideOptional,arr[1])){
+            return;
+        }
+        Ride ride = rideOptional.get();
+        String totalBillAmount = Util.calculateBill(ride.getDistanceCovered(),ride.getMinutes());
+        double billAmount = Double.parseDouble(totalBillAmount);
+        Bill bill = new Bill(ride,billAmount);
+        System.out.println("BILL "+bill.getRide().getId()+" "+ride.getDriver().getId()+" "+totalBillAmount);
+    }
+
+    private boolean isRideStopped(Optional<Ride> rideOptional, String s) {
+        if (! rideOptional.isPresent() || rideService.isRiderOnRide(s)) {
+            System.out.println("INVALID_RIDE");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isStopRideInvalid(Optional<Ride> rideOptional, String s) {
+        if (! rideOptional.isPresent() || !rideService.isRiderOnRide(s)) {
+            System.out.println("INVALID_RIDE");
+            return true;
+        }
+        return false;
+    }
+}
