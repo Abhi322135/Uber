@@ -3,7 +3,6 @@ package com.example.geektrust.Model;
 public class Bill {
     private Ride ride;
     private double bill;
-
     public Bill(Ride ride, double bill) {
         this.ride = ride;
         this.bill = bill;

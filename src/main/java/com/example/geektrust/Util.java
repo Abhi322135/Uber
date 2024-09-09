@@ -15,7 +15,6 @@ public class Util {
     }
     public static String getTwoDecimalNumber(double number){
         BigDecimal roundedValue = new BigDecimal(number).setScale(2, RoundingMode.HALF_UP);
-        String formattedNumber = String.format("%.2f", roundedValue);
-        return formattedNumber;
+        return String.format("%.2f", roundedValue);
     }
 }
