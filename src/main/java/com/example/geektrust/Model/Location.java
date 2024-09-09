@@ -1,16 +1,14 @@
-package com.example.geektrust.Model.POJO;
+package com.example.geektrust.Model;
 
 import com.example.geektrust.Util;
-
-import java.text.DecimalFormat;
 
 public class Location {
     private int x;
     private int y;
 
     public Location(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.setX(x);
+        this.setY(y);
     }
 
     public int getX() {

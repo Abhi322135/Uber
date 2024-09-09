@@ -1,7 +1,7 @@
 package com.example.geektrust.Service;
 
 import com.example.geektrust.Model.Driver;
-import com.example.geektrust.Model.POJO.Location;
+import com.example.geektrust.Model.Location;
 import com.example.geektrust.Repository.DriverRepository;
 
 import java.util.List;

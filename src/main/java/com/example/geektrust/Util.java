@@ -1,11 +1,9 @@
 package com.example.geektrust;
 
-import com.example.geektrust.Model.POJO.Location;
+import com.example.geektrust.Model.Location;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.text.ParseException;
 
 public class Util {
     public static String getDistance(Location a, Location b){ //TODO: Migrate it to Location class
