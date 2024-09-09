@@ -1,7 +1,5 @@
 package com.example.geektrust.Model;
 
-import com.example.geektrust.Model.POJO.Location;
-
 public class Ride {
     private String id;
     private Rider rider;

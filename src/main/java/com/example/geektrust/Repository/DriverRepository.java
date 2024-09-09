@@ -2,7 +2,7 @@ package com.example.geektrust.Repository;
 
 import com.example.geektrust.Constant;
 import com.example.geektrust.Model.Driver;
-import com.example.geektrust.Model.POJO.Location;
+import com.example.geektrust.Model.Location;
 import com.example.geektrust.Util;
 
 import java.util.*;

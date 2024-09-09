@@ -2,7 +2,7 @@ package com.example.geektrust;
 
 import com.example.geektrust.Model.Bill;
 import com.example.geektrust.Model.Driver;
-import com.example.geektrust.Model.POJO.Location;
+import com.example.geektrust.Model.Location;
 import com.example.geektrust.Model.Ride;
 import com.example.geektrust.Model.Rider;
 import com.example.geektrust.Repository.DriverRepository;
@@ -42,10 +42,10 @@ public class BookCabService {
         Location rider = riderService.getRiderById(arr[1]).get().getRider();
         List<Driver> drivers = driverService.getTopFiveDriver(rider);
         if (drivers.size() == 0) {
-            System.out.println("NO_DRIVERS_AVAILABLE");
+            System.out.println(Constant.DRIVER_NOT_MATCHED_MESSAGE);
             return;
         }
-        System.out.print("DRIVERS_MATCHED ");
+        System.out.print(Constant.DRIVER_MATCH_MESSAGE);
         drivers.forEach(a -> System.out.print(a.getId()+" "));
         System.out.println();
     }
@@ -54,14 +54,14 @@ public class BookCabService {
         Location loc = riderService.getRiderById(arr[3]).get().getRider();
         List<Driver> drivers = driverService.getTopFiveDriver(loc);
         if (drivers.size() < driverInd || rideService.isRiderOnRide(arr[3])){
-            System.out.println("INVALID_RIDE");
+            System.out.println(Constant.INVALID_RIDE_MESSAGE);
             return;
         }
         Driver driver = drivers.get(driverInd - 1);
         driver.setOccupied(Constant.TRUE);
         Rider rider = riderService.getRiderById(arr[3]).get();
         rideService.add(new Ride(arr[1],rider,0,driver,driver.getLocation(),0,Constant.FALSE));
-        System.out.println("RIDE_STARTED "+arr[1]);
+        System.out.println(Constant.RIDE_STARTED_MESSAGE+arr[1]);
     }
 
     public void stopRide(String[] arr){
@@ -82,7 +82,7 @@ public class BookCabService {
         ride.setRideCompleted(Constant.TRUE);
         driverService.updateDriver(driver);
         riderService.updateRider(rider);
-        System.out.println("RIDE_STOPPED "+arr[1]);
+        System.out.println(Constant.RIDE_STOPPED_MESSAGE+arr[1]);
     }
 
     public void generateBill(String[] arr){
@@ -94,12 +94,12 @@ public class BookCabService {
         String totalBillAmount = Util.calculateBill(ride.getDistanceCovered(),ride.getMinutes());
         double billAmount = Double.parseDouble(totalBillAmount);
         Bill bill = new Bill(ride,billAmount);
-        System.out.println("BILL "+bill.getRide().getId()+" "+ride.getDriver().getId()+" "+totalBillAmount);
+        System.out.println(Constant.RIDE_BILL_MESSAGE+bill.getRide().getId()+" "+ride.getDriver().getId()+" "+totalBillAmount);
     }
 
     private boolean isRideStopped(Optional<Ride> rideOptional, String s) {
         if (! rideOptional.isPresent() || rideService.isRiderOnRide(s)) {
-            System.out.println("INVALID_RIDE");
+            System.out.println(Constant.INVALID_RIDE_MESSAGE);
             return false;
         }
         return true;
@@ -107,7 +107,7 @@ public class BookCabService {
 
     private boolean isStopRideInvalid(Optional<Ride> rideOptional, String s) {
         if (! rideOptional.isPresent() || !rideService.isRiderOnRide(s)) {
-            System.out.println("INVALID_RIDE");
+            System.out.println(Constant.INVALID_RIDE_MESSAGE);
             return true;
         }
         return false;

@@ -1,7 +1,5 @@
 package com.example.geektrust.Model;
 
-import com.example.geektrust.Model.POJO.Location;
-
 public class Driver {
     private String id;
     private Location location;
