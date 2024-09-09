@@ -11,18 +11,25 @@ import com.example.geektrust.Repository.RiderRepository;
 import com.example.geektrust.Service.DriverService;
 import com.example.geektrust.Service.RideService;
 import com.example.geektrust.Service.RiderService;
+import com.example.geektrust.Service.ServiceInterface.DriverServiceInterface;
+import com.example.geektrust.Service.ServiceInterface.RideServiceInterface;
+import com.example.geektrust.Service.ServiceInterface.RiderServiceInterface;
 
 import java.util.List;
 import java.util.Optional;
 
 public class BookCabService {
-    private  DriverService driverService;
-    private  RideService rideService;
-    private  RiderService riderService;
+    private DriverServiceInterface driverService;
+    private RideServiceInterface rideService;
+    private RiderServiceInterface riderService;
     private  DriverRepository driverRepository;
     private  RideRepository rideRepository;
     private  RiderRepository riderRepository;
     public BookCabService() {
+        initialize();
+    }
+
+    private void initialize() {
         this.driverRepository = new DriverRepository();
         this.rideRepository = new RideRepository();
         this.riderRepository = new RiderRepository();
@@ -30,6 +37,7 @@ public class BookCabService {
         this.rideService = new RideService(this.rideRepository);
         this.riderService = new RiderService(this.riderRepository);
     }
+
     public void addDriver(String[] arr){
         Location driverLoc = new Location(Integer.parseInt(arr[2]),Integer.parseInt(arr[3]));
         driverService.add(driverService.getDriver(arr[1],driverLoc,Constant.FALSE));

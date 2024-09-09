@@ -3,10 +3,11 @@ package com.example.geektrust.Service;
 import com.example.geektrust.Model.Driver;
 import com.example.geektrust.Model.Location;
 import com.example.geektrust.Repository.DriverRepository;
+import com.example.geektrust.Service.ServiceInterface.DriverServiceInterface;
 
 import java.util.List;
 
-public class DriverService {
+public class DriverService implements DriverServiceInterface {
     private final DriverRepository driverRepository;
 
     public DriverService(DriverRepository driverRepository) {

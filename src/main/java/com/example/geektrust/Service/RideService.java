@@ -2,11 +2,13 @@ package com.example.geektrust.Service;
 
 import com.example.geektrust.Model.Ride;
 import com.example.geektrust.Repository.RideRepository;
+import com.example.geektrust.Service.ServiceInterface.RideServiceInterface;
+import com.example.geektrust.Service.ServiceInterface.RiderServiceInterface;
 
 import java.util.List;
 import java.util.Optional;
 
-public class RideService {
+public class RideService implements RideServiceInterface {
     private final RideRepository rideRepository;
 
     public RideService(RideRepository rideRepository) {
