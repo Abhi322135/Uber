@@ -25,6 +25,8 @@ public class BookCabService {
     private  DriverRepository driverRepository;
     private  RideRepository rideRepository;
     private  RiderRepository riderRepository;
+
+    // TODO: Use dependency injection to inject DriverRepository, RideRepository, RiderRepository
     public BookCabService() {
         initialize();
     }
@@ -40,6 +42,7 @@ public class BookCabService {
 
     public void addDriver(String[] arr){
         Location driverLoc = new Location(Integer.parseInt(arr[2]),Integer.parseInt(arr[3]));
+        // TODO: Redundant function getDriver(), why not use new Driver() directly?
         driverService.add(driverService.getDriver(arr[1],driverLoc,Constant.FALSE));
     }
     public void addRider(String[] arr){

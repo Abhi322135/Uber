@@ -2,6 +2,7 @@ package com.example.geektrust.Model;
 
 public class Bill {
     private Ride ride;
+    // TODO: rename to fare.
     private double bill;
     public Bill(Ride ride, double bill) {
         this.ride = ride;

@@ -1,5 +1,6 @@
 package com.example.geektrust;
 
+// TODO: Constant -> Constants
 public class Constant {
     public static final int BASE_PRICE = 50;
     public static final double RATE_PER_KILOMETER = 6.5;
