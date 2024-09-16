@@ -16,6 +16,7 @@ public class RideRepository {
         rideList.remove(r);
     }
     public void updateRide(Ride r){
+        // TODO: Use findById method here
         Optional<Ride> ride = rideList.stream().filter(a -> a.getId().equals(r.getId())).findAny();
         if (ride.isPresent()){
             remove(ride.get());
@@ -29,6 +30,7 @@ public class RideRepository {
     public Optional<Ride> findById(String id) {
         return rideList.stream().filter(a -> a.getId().equals(id)).findAny();
     }
+    // TODO: findIfUserIsOnARide -> isRideOngoing
     public boolean findIfUserIsOnARide(String id){
         return rideList.stream().anyMatch(a -> a.getId().equals(id) && a.isRideCompleted() == Constant.FALSE);
     }

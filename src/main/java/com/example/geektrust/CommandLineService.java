@@ -1,8 +1,16 @@
+// TODO: Should be under 'services' package
 package com.example.geektrust;
 
+// TODO: CommandLineService -> CommandLineExecutorService
 public class CommandLineService {
+
+    // TODO: Use dependency injection to inject BookCabService
     BookCabService service = new BookCabService();
+
+    // TODO: Update to accept a command object/function args containing String action and String[] args.
+    // TODO: executeLines -> just execute
     public void executeLines(String arr[]){
+        // TODO: Use switch case instead of if else
         if (arr[0].equalsIgnoreCase("ADD_DRIVER")){
             executeAddDriverCommand(arr);
         }

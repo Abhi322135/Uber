@@ -16,6 +16,9 @@ public class DriverRepository {
     public List<Driver> getAllDriverList(){
         return driverList;
     }
+    // TODO: Just update() would have been fine, always keep names simple and avoid redundant words.
+    //  driverRepository.update(d) would mean the same thing as driverRepository.updateDriverDetails(d) readability
+    //  wise.
     public void updateDriverDetails(Driver updatedList){
         Optional<Driver> driver = driverList.stream().filter(d -> Objects.equals(updatedList.getId(), d.getId()))
                                   .findFirst();
@@ -30,6 +33,7 @@ public class DriverRepository {
     }
     public List<Driver> getTopFiveDriver(Location riderLocation){
         return driverList.stream()
+                // TODO: You can use multiple .filter()
                 .filter(driver -> !driver.isOccupied() && Double.parseDouble(driver.getLocation().distanceTo(riderLocation)) <= Constant.MAX_DIST && Double.parseDouble(driver.getLocation().distanceTo(riderLocation)) != 0) //TODO: NEED TO ADD CONSTANT
                 .sorted(Comparator.comparingDouble((Driver d) -> Double.parseDouble(Util.getDistance(d.getLocation() , riderLocation))).thenComparing(Driver::getId))
                 .limit(Constant.MAX_SIZE).collect(Collectors.toList());
